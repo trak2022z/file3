@@ -48,14 +48,14 @@ const app = express();
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 
-
 // const INVALID_PARAM_ERROR = 400;
-//const SERVER_ERROR = 500;
-// const SERVER_ERROR_MSG = 'Something went wrong on the server.';
+const SERVER_ERROR = 500;
+const SERVER_ERROR_MSG = 'Something went wrong on the server.';
 
-
-// TODO: Implement /menu. Gets all menu items, organized by category and in alphabetical order.
-// Gets all menu items (JSON), organized by category alphabetically.
+/*
+ * TODO: Implement /menu. Gets all menu items, organized by category and in alphabetical order.
+ * Gets all menu items (JSON), organized by category alphabetically.
+ */
 app.get('/menu', async function(req, res) {
   try {
     let db = await getDBConnection();
@@ -68,16 +68,14 @@ app.get('/menu', async function(req, res) {
   }
 });
 
-
 // TODO: Implement /menu/:category. Gets all menu items in a given :category in alphabetical order.
-
 
 /**
  * Takes an array of menu items and processes it into a category to item array mapping.
  * @param {array} menu - An array of menu items with fields category, subcategory, name, price.
  * @returns {object} - The formatted menu object.
  */
- function processMenu(menu) {
+function processMenu(menu) {
   let result = {};
   for (let i = 0; i < menu.length; i++) {
     let name = menu[i]['name'];
@@ -91,7 +89,6 @@ app.get('/menu', async function(req, res) {
   }
   return result;
 }
-
 
 /**
  * Establishes a database connection to a database and returns the database object.
@@ -107,12 +104,5 @@ async function getDBConnection() {
   return db;
 }
 
-<<<<<<< HEAD
-
-
-
 const PORT = process.env.PORT || 8000;
-=======
-const PORT = process.env.PORT || 3000;
->>>>>>> 8994c0e13af0da6329121317a3b0e7e42284fc5e
 app.listen(PORT);
