@@ -18,9 +18,9 @@
  *       'subcategory': 'Scones',
  *       'price': 3.50
  *     },
- *     ...
+ *     .......
  *   ],
- *   ...
+ *   .....
  *  }
  * *************************************
  * Endpoint: /menu/:category
@@ -48,9 +48,11 @@ const app = express();
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 
-const INVALID_PARAM_ERROR = 400;
-const SERVER_ERROR = 500;
-const SERVER_ERROR_MSG = 'Something went wrong on the server.';
+
+// const INVALID_PARAM_ERROR = 400;
+//const SERVER_ERROR = 500;
+// const SERVER_ERROR_MSG = 'Something went wrong on the server.';
+
 
 // TODO: Implement /menu. Gets all menu items, organized by category and in alphabetical order.
 // Gets all menu items (JSON), organized by category alphabetically.
@@ -105,8 +107,12 @@ async function getDBConnection() {
   return db;
 }
 
+<<<<<<< HEAD
 
 
 
 const PORT = process.env.PORT || 8000;
+=======
+const PORT = process.env.PORT || 3000;
+>>>>>>> 8994c0e13af0da6329121317a3b0e7e42284fc5e
 app.listen(PORT);
