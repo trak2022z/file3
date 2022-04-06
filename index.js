@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /*
  * API for a theoretical cafe.
  *
@@ -48,7 +49,7 @@ const app = express();
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 
-// const INVALID_PARAM_ERROR = 400;
+const INVALID_PARAM_ERROR = 400;
 const SERVER_ERROR = 500;
 const SERVER_ERROR_MSG = 'Something went wrong on the server.';
 
@@ -68,7 +69,27 @@ app.get('/menu', async function(req, res) {
   }
 });
 
-// TODO: Implement /menu/:category. Gets all menu items in a given :category in alphabetical order.
+/*
+ * TODO: Implement /menu/:category. Gets all menu items in a given :category in alphabetical order.
+ * Gets all menu items (JSON) in a given :category.
+ */
+app.get('/menu/:category', async function(req, res) {
+  try {
+    let qry = 'SELECT name, subcategory, price FROM menu WHERE category =? ORDER BY name;';
+    let db = await getDBConnection();
+    let menu = await db.all(qry, req.params.category);
+    await db.close();
+    if (menu.length === 0) {
+      res.type('text');
+      res.status(INVALID_PARAM_ERROR).send('There are no records for that category!');
+    } else {
+      res.json(menu);
+    }
+  } catch (err) {
+    res.type('text');
+    res.status(SERVER_ERROR).send(SERVER_ERROR_MSG);
+  }
+});
 
 /**
  * Takes an array of menu items and processes it into a category to item array mapping.
